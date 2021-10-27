@@ -1,7 +1,7 @@
 {
   "name": "three-pendulum",
   "version": "1.0.0",
-  "source": "index.html",
+  "source": "src/index.html",
   "repository": "git@github.com:kharenzze/three-pendulum.git",
   "author": "Paolo <str237@gmail.com>",
   "license": "MIT",
