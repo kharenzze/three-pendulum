@@ -5,6 +5,10 @@
   "repository": "git@github.com:kharenzze/three-pendulum.git",
   "author": "Paolo <str237@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
   "devDependencies": {
     "parcel": "^2.0.0"
   }
