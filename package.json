@@ -1,0 +1,11 @@
+{
+  "name": "three-pendulum",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "git@github.com:kharenzze/three-pendulum.git",
+  "author": "Paolo <str237@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  }
+}
