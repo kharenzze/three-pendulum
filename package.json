@@ -1,6 +1,6 @@
 {
   "name": "three-pendulum",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "source": "src/index.html",
   "repository": "git@github.com:kharenzze/three-pendulum.git",
   "author": "Paolo <str237@gmail.com>",
