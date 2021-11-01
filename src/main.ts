@@ -46,53 +46,33 @@ const onResize = () => {
 
 onResize()
 
-const resizeListener = window.addEventListener('resize', onResize)
+window.addEventListener('resize', onResize)
 
 const camera = new THREE.PerspectiveCamera(45, aspect, 1, 500);
-camera.position.set(0, -40, 110);
-camera.lookAt(0, 0, 0);
+camera.position.set(0, 60, 190);
+camera.lookAt(0, 70, 0);
 
 const scene = new THREE.Scene();
 
-const HEX = {
-  SIN60: Math.sin(Math.PI / 3),
-  COS60: Math.cos(Math.PI / 3),
-}
-const DIM = 60
-const RADIUS = 0.5
-const DISTANCE = 4 * RADIUS
-const START = -(DIM - 1) * DISTANCE / 2
+const N = 20
+const SPHERE_RADIUS = 3
 type Sphere = THREE.Mesh<THREE.SphereGeometry, THREE.LineBasicMaterial>
-const spheres: Array<Array<Sphere>> = new Array(DIM)
-let x = START
-const geometry = new THREE.SphereGeometry(RADIUS, 4, 4)
-for (let i = 0; i < DIM; i++) {
-  spheres[i] = new Array(DIM)
-  let y = START
-  for (let j = 0; j < DIM; j++) {
-    const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
-    const sphere = new THREE.Mesh(geometry, material);
-    const offsetY = i % 2 ? DISTANCE * HEX.COS60 : 0
-    sphere.position.x = x
-    sphere.position.y = y + offsetY
-    spheres[i][j] = sphere
-    scene.add(sphere);
-    y += DISTANCE
-  }
-  x += DISTANCE
+
+const spheres: Array<Sphere> = new Array(N)
+const geometry = new THREE.SphereGeometry(SPHERE_RADIUS, 10, 10)
+for (let i = 0; i < N; i++) {
+  const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
+  const sphere = new THREE.Mesh(geometry, material);
+  sphere.position.set(0, i * 7, 0)
+  spheres[i] = sphere
+  scene.add(sphere)
 }
 
-const target = spheres[9][9]
-const origin = new THREE.Vector2(target.position.x, target.position.y)
+
 const clock = new THREE.Clock(true)
 
 let pause = false
 let et = 0
-const wave = {
-  a: 8,
-  w: 3,
-  v: 10,
-}
 
 const fpsCounter = document.getElementById('fps-counter')
 const updateFPS = (fps: number) => {
@@ -107,15 +87,9 @@ const animate = function () {
   const fps = Math.floor(1/dt)
   
   et += dt
-  for (let list of spheres) {
-    for (let s of list) {
-      const posInPlane = new THREE.Vector2(s.position.x, s.position.y)
-      const d = posInPlane.distanceTo(origin)
-      const lossRatio = 1//0.1 * d
-      s.position.z = wave.a * Math.sin(wave.w * (et - (d / wave.v))) / lossRatio
-    }
+  for (let s of spheres) {
   }
-  target.position.z = wave.a * Math.sin(wave.w * et)
+
   renderer.render(scene, camera);
   updateFPS(fps)
 };
