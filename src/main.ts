@@ -61,13 +61,14 @@ type Sphere = THREE.Mesh<THREE.SphereGeometry, THREE.LineBasicMaterial>
 const spheres: Array<Sphere> = new Array(N)
 const geometry = new THREE.SphereGeometry(SPHERE_RADIUS, 10, 10)
 for (let i = 0; i < N; i++) {
-  const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
+  const h = i * 250 / N
+  const color = new THREE.Color(`hsl(${h}, 100%, 50%)`);
+  const material = new THREE.LineBasicMaterial({ color })
   const sphere = new THREE.Mesh(geometry, material);
   sphere.position.set(0, i * 7, 0)
   spheres[i] = sphere
   scene.add(sphere)
 }
-
 
 const clock = new THREE.Clock(true)
 
@@ -87,7 +88,14 @@ const animate = function () {
   const fps = Math.floor(1/dt)
   
   et += dt
+  const amplitude = 40
+  const w = 2 * Math.PI / 8
+  let i = 0
   for (let s of spheres) {
+    const offset = 0.02 * Math.PI * i + 1
+    const x = amplitude * Math.sin(w * et * offset)
+    s.position.setX(x)
+    i++
   }
 
   renderer.render(scene, camera);
